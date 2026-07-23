@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "zotero-cli-agent"
+version = "0.1.0"
+description = "A lightweight, context-efficient CLI for AI agents to search, ingest, and write to your Zotero library directly from the terminal — multilingual semantic search, optional stdio MCP server"
+authors = [{ name = "XWzhangSZU" }]
+license = { text = "BSD-3-Clause" }
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = [
+    "zotero",
+    "cli",
+    "ai-agent",
+    "claude-code",
+    "context-efficient",
+    "agent-friendly",
+    "semantic-search",
+    "rag",
+    "mcp",
+    "sqlite-vec",
+    "llm-tools",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: BSD License",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Text Processing :: Indexing",
+]
+dependencies = [
+    "click>=8.1",
+    "sqlite-vec>=0.1.6",
+    "httpx>=0.27",
+    "rich>=13.7",
+]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0"]
+# `ingest` has no Python deps of its own — it shells out to the external `opencli`
+# binary (https://github.com/jackwener/opencli, install separately). The empty
+# extra exists as a documentation marker so `pip install zotero-cli-agent[ingest]`
+# becomes the canonical signal that the user wants the ingest subcommand family.
+ingest = []
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+
+[project.urls]
+Homepage = "https://github.com/xwzhangSZU/zotero-cli-agent"
+Issues = "https://github.com/xwzhangSZU/zotero-cli-agent/issues"
+
+[project.scripts]
+zsearch = "zotero_cli.cli:main"
+zfulltext = "zotero_cli.zfulltext_cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/zotero_cli"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
