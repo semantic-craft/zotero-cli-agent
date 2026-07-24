@@ -42,7 +42,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-mcp = ["mcp>=1.0"]
+mcp = ["mcp>=1.28.1"]
 # `ingest` has no Python deps of its own — it shells out to the external `opencli`
 # binary (https://github.com/jackwener/opencli, install separately). The empty
 # extra exists as a documentation marker so `pip install zotero-cli-agent[ingest]`
